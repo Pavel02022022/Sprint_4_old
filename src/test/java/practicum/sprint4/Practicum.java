@@ -97,6 +97,15 @@ public class Practicum {
         } else {
             System.out.println("The element does not have the hidden attribute.");
         }
+        driver.findElement(l1).click();
+
+        String hiddenAttribute2 = accordionPanel.getAttribute("hidden");
+        System.out.println(hiddenAttribute2);
+        if (hiddenAttribute2 != null && hiddenAttribute2.equals("true")) {
+            System.out.println("The element has the hidden attribute.");
+        } else {
+            System.out.println("The element does not have the hidden attribute.");
+        }
 
         /*
         driver.findElement(By.xpath(".//p[contains(text(), 'Сутки — 400 рублей. Оплата курьеру — наличными или картой.')]"));
