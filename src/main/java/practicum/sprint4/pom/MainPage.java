@@ -1,4 +1,4 @@
-package ru.yandex.practicum.sprint4;
+package practicum.sprint4.pom;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

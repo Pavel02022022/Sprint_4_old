@@ -1,10 +1,11 @@
-package ru.yandex.practicum.sprint4;
+package practicum.sprint4;
 
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import practicum.sprint4.pom.MainPage;
 
 public class Practicum {
     private WebDriver driver;
