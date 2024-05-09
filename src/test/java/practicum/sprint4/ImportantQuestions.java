@@ -1,13 +1,18 @@
 package practicum.sprint4;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
@@ -17,6 +22,8 @@ public class ImportantQuestions {
     private WebDriver driver;
     private final String question;
     private final String answer;
+
+    private String path = "https://qa-scooter.praktikum-services.ru/";
 
     public ImportantQuestions(String question, String answer) {
         this.question = question;
@@ -54,15 +61,47 @@ public class ImportantQuestions {
 
     @Test
     public void test(){
+        driver.get(path);
 
-        
+        // Скролл до кнопки
+        extracted();
+
+        // Привязывемся к id для дальнейшего поиска текста выпадающего списка
+        String id =  driver.findElement(By.xpath(".//div[contains(text(), '" + question + "')]"))
+                .getAttribute("aria-controls");
+        System.out.println(id);
+
+        // Кликаем по вопросу
+        driver.findElement(By.xpath(".//div[contains(text(), '" + question + "')]")).click();
+
+        // Выпадающий список открылся
+        Assert.assertEquals("true", driver.findElement(By.xpath(".//div[contains(text(), '" + question + "')]"))
+                .getAttribute("aria-expanded"));
+
+        // Текст больше не скрыт
+        Assert.assertNull(driver.findElement(By.xpath(".//div[@id ='" + id + "']")).getAttribute("hidden"));
+
+
+        // Проверка, что открылся соответствующий текст
+        String text = new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//div[@id ='" + id + "']")))).getText();
+
+        System.out.println(text);
+        Assert.assertEquals(text, answer);
+
+
     }
 
+    private void extracted() {
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",
+                driver.findElement(By.xpath(".//div[contains(text(), '" + question + "')]")));
+    }
 
 
     @After
     public void teardown() {
         // Закрой браузер
         driver.quit();
+
     }
 }
