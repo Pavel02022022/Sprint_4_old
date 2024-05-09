@@ -14,8 +14,9 @@ public class MainPage {
     }
 
     //Нажать кнопку "Заказать"
-    public void pressOrederButton(){
+    public MainPage pressOrederButton(){
         driver.findElement(orderButton).click();
+        return this;
     }
 
 

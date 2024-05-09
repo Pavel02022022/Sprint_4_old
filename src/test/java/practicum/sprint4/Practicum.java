@@ -1,23 +1,35 @@
 package practicum.sprint4;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import practicum.sprint4.pom.MainPage;
 
+import java.time.Duration;
+
+import static java.time.temporal.ChronoUnit.SECONDS;
+
 public class Practicum {
     private WebDriver driver;
     private String path = "https://qa-scooter.praktikum-services.ru/";
 
-    @Test
-    public void test() {
-        // драйвер для браузера Chrome
+    @Before
+    public void setup() {
+        // Настройки Хрома
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+        // Драйвер для браузера Chrome
         driver = new ChromeDriver(options);
-        // переход на страницу тестового приложения
+        // Ожидание
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+    }
+
+    @Test
+    public void test() {
+        // Переход на страницу тестового приложения
         driver.get(path);
 
         MainPage mainPage = new MainPage(driver);
