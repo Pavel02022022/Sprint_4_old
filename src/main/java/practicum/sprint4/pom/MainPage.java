@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class MainPage {
     private WebDriver driver;
@@ -15,8 +16,7 @@ public class MainPage {
     // Кнопка "Заказать"
     private By orderButton = By.className("Button_Button__ra12g");
     // "Вопрос о важном"
-    //private By accordionButton = By.className("accordion__button");
-    private By accordionButton = By.xpath("/html/body/div/div/div/div[5]/div[2]/div/div[1]/div[1]/div");
+    private By accordionButton = By.className("accordion__button");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -27,6 +27,14 @@ public class MainPage {
         driver.findElement(orderButton).click();
         return this;
     }
+
+    public MainPage getAllAccordionButtons(){
+        List<WebElement> elements = driver.findElements(accordionButton);
+       return this;
+    }
+
+
+
 
     // Нажать на один из "Вопросов о важном"
     public MainPage pressAccordionButton(){

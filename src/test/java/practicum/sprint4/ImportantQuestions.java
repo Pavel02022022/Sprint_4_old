@@ -9,12 +9,14 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 @RunWith(Parameterized.class)
 public class ImportantQuestions {
@@ -63,8 +65,18 @@ public class ImportantQuestions {
     public void test(){
         driver.get(path);
 
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",
+                driver.findElement(By.xpath(".//div[contains(text(), '" + question + "')]")));
+
+
+
+
+
+
         // Скролл до кнопки
-        extracted();
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",
+                driver.findElement(By.xpath(".//div[contains(text(), '" + question + "')]")));
+
 
         // Привязывемся к id для дальнейшего поиска текста выпадающего списка
         String id =  driver.findElement(By.xpath(".//div[contains(text(), '" + question + "')]"))
@@ -90,18 +102,33 @@ public class ImportantQuestions {
         Assert.assertEquals(text, answer);
 
 
+
+
+
+
     }
 
-    private void extracted() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",
-                driver.findElement(By.xpath(".//div[contains(text(), '" + question + "')]")));
-    }
 
 
     @After
     public void teardown() {
         // Закрой браузер
         driver.quit();
+
+    }
+
+    @Test
+    public void test2(){
+
+        driver.get(path);
+
+        // Скролл до кнопки
+
+
+        List<WebElement> elements = driver.findElements(By.className("accordion__item"));
+        System.out.println(elements);
+
+
 
     }
 }
