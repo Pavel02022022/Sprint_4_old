@@ -26,6 +26,9 @@ public class ImportantQuestions2 {
     private  String question ;
     private  String answer ;
     private int index;
+    //
+    By accordionButton = By.className("accordion__button");
+    //
 
     private String path = "https://qa-scooter.praktikum-services.ru/";
 
@@ -73,22 +76,24 @@ public class ImportantQuestions2 {
         driver.get(path);
 
         // Количество кнопок
-        int size = driver.findElements(By.className("accordion__button")).size();
+        int size = driver.findElements(accordionButton).size();
 
  for (int i =0; i < size; i++){
      if (i == index) {
-         String ariaControls = driver.findElements(By.className("accordion__button")).get(i).getAttribute("aria-controls");
+         String ariaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");
 
-         System.out.println(driver.findElements(By.className("accordion__button")).get(i).getText());
+         System.out.println(driver.findElements(accordionButton).get(i).getText());
 
-         Assert.assertEquals(driver.findElements(By.className("accordion__button")).get(i).getText(), question);
+         Assert.assertEquals(driver.findElements(accordionButton).get(i).getText(), question);
+
          ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
                  driver.findElement(By.xpath(".//div[@aria-controls='" + ariaControls + "']")));
-         driver.findElements(By.className("accordion__button")).get(i).click();
+
+         driver.findElements(accordionButton).get(i).click();
          // Выпадающий список открылся
-         Assert.assertEquals("true", driver.findElements(By.className("accordion__button")).get(i).getAttribute("aria-expanded"));
+         Assert.assertEquals("true", driver.findElements(accordionButton).get(i).getAttribute("aria-expanded"));
          // Текст больше не скрыт
-         Assert.assertNull(driver.findElements(By.className("accordion__button")).get(i).getAttribute("hidden"));
+         Assert.assertNull(driver.findElements(accordionButton).get(i).getAttribute("hidden"));
          // Проверка, что открылся соответствующий текст
          String text = new WebDriverWait(driver, Duration.ofSeconds(3))
                  .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//div[@id ='" + ariaControls + "']")))).getText();
