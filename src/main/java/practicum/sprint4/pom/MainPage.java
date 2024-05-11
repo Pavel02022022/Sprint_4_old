@@ -18,6 +18,10 @@ public class MainPage {
     // "Вопрос о важном"
     private By accordionButton = By.className("accordion__button");
 
+    //private String attributeAriaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");;
+
+    private By ariaControls = By.xpath(".//div[@aria-controls='" + dgd(1) + "']");
+
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -28,29 +32,53 @@ public class MainPage {
         return this;
     }
 
-    public MainPage getAllAccordionButtons(){
-        List<WebElement> elements = driver.findElements(accordionButton);
-       return this;
-    }
-
-
-
-
-    // Нажать на один из "Вопросов о важном"
-    public MainPage pressAccordionButton(){
-        // Скролл до кнопки
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(accordionButton));
-        // Нажатие
-        driver.findElement(accordionButton).click();
+    public MainPage clickOnQuestion(int i){
+        driver.findElements(accordionButton).get(i).click();
         return this;
     }
 
-    public void dsfs(){
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(accordionButton));
-        int abuttons = driver.findElements(accordionButton).size();
-        System.out.println(abuttons);
+    public MainPage goToAccordionButton(int i){
+        String ariaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
+                driver.findElement(By.xpath(".//div[@aria-controls='" + ariaControls + "']")));
+        return this;
     }
+    public MainPage goToAccordionButton2(int i){
+
+        String ariaControls = dgd(i);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
+                driver.findElement(By.xpath(".//div[@aria-controls='" + ariaControls + "']")));
+        return this;
+    }
+
+    public String checkTextExpandsOnclick(int i){
+        return driver.findElements(accordionButton).get(i).getAttribute("aria-expanded");
+    }
+
+    public String textIsNotHidden(int i){
+        return driver.findElements(accordionButton).get(i).getAttribute("hidden");
+    }
+
+    public String getExpandedTextFromAnswer(int i){
+        return new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOf(driver.findElement(ariaControls))).getText();
+    }
+
+    public String getTextFromQuestion(int i){
+        return driver.findElements(accordionButton).get(i).getText();
+    }
+
+    public boolean questionTextIsDisplayed(int i){
+        return driver.findElements(accordionButton).get(i).isDisplayed();
+
+    }
+
+    public String dgd(int i){
+        return driver.findElements(accordionButton).get(i).getAttribute("aria-controls");
+
+    }
+
+
 
 
 

@@ -38,8 +38,7 @@ public class Practicum {
 
         MainPage mainPage = new MainPage(driver);
 
-        mainPage.dsfs();
-        mainPage.pressAccordionButton();
+
 
         String aa = driver.findElement(By.xpath("/html/body/div/div/div/div[5]/div[2]/div/div[1]/div[1]/div")).getText();
         System.out.println(aa);

@@ -1,5 +1,6 @@
 package practicum.sprint4;
 
+import jdk.jfr.Description;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,7 +10,6 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,7 +17,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import practicum.sprint4.pom.MainPage;
 
 import java.time.Duration;
-import java.util.List;
 
 @RunWith(Parameterized.class)
 public class ImportantQuestions2 {
@@ -92,8 +91,10 @@ public class ImportantQuestions2 {
          driver.findElements(accordionButton).get(i).click();
          // Выпадающий список открылся
          Assert.assertEquals("true", driver.findElements(accordionButton).get(i).getAttribute("aria-expanded"));
+
          // Текст больше не скрыт
          Assert.assertNull(driver.findElements(accordionButton).get(i).getAttribute("hidden"));
+
          // Проверка, что открылся соответствующий текст
          String text = new WebDriverWait(driver, Duration.ofSeconds(3))
                  .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//div[@id ='" + ariaControls + "']")))).getText();
@@ -103,6 +104,19 @@ public class ImportantQuestions2 {
          Assert.assertEquals(text, answer);
      }
  }
+ }
+ @Description("sdf")
+ @Test
+ public void test3(){
+     driver.get(path);
+
+     MainPage mainPage = new MainPage(driver);
+     mainPage.goToAccordionButton(index);
+     Assert.assertEquals(question, mainPage.getTextFromQuestion(index));
+     mainPage.clickOnQuestion(index);
+     Assert.assertEquals("true", mainPage.checkTextExpandsOnclick(index));
+     Assert.assertNull(mainPage.textIsNotHidden(index));
+     Assert.assertEquals(answer, mainPage.getExpandedTextFromAnswer(index));
 
  }
 
