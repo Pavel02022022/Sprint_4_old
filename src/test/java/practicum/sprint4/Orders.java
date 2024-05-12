@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import practicum.sprint4.pom.MainPage;
+import practicum.sprint4.pom.OrderPage;
 
 import java.time.Duration;
 
@@ -35,13 +36,21 @@ public class Orders {
     }
 
 
-
     @Test
     public void checkOrderButton(){
         MainPage mainPage = new MainPage(driver);
 
-        mainPage.goToBottomOrderButton().clickOnBottomOrderButton();
+        //mainPage.goToBottomOrderButton().clickOnBottomOrderButton();
         mainPage.goToTopOrderButton().clickOnTopOrderButton();
+
+        OrderPage orderPage = new OrderPage(driver);
+
+        orderPage.fillFieldName("dfgd")
+                 .fillFieldSurname("fg")
+                 .fillFieldAddress("dfg")
+                 .fillFieldMetroStation("fg")
+                 .fillFieldPhone("fg");
+
 
     }
 
