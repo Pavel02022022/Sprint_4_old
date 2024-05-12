@@ -1,6 +1,7 @@
 package practicum.sprint4;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -26,7 +27,12 @@ public class Orders {
         driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 
-
+    // Проверка количества кнопок "Заказать"
+    @Test
+    public void checkOrderButtonQuantity(){
+        MainPage mainPage = new MainPage(driver);
+        Assert.assertEquals(2, mainPage.getQuantityOfOrderButtons());
+    }
 
 
 

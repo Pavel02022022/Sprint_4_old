@@ -12,7 +12,7 @@ public class MainPage {
     private WebDriver driver;
 
     // Кнопка "Заказать"
-    private By orderButton = By.className("Button_Button__ra12g");
+    private By orderButton = By.xpath(".//button[contains(text(), 'Заказать')]");
     // "Вопрос о важном"
     private By accordionButton = By.className("accordion__button");
 
@@ -94,7 +94,10 @@ public class MainPage {
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
                 driver.findElement(element));
+    }
 
+    public int getQuantityOfOrderButtons(){
+        return driver.findElements(orderButton).size();
     }
 
 
