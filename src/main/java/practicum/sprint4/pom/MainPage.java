@@ -20,7 +20,7 @@ public class MainPage {
 
     //private String attributeAriaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");;
 
-    private By ariaControls = By.xpath(".//div[@aria-controls='" + dgd(1) + "']");
+    //private By ariaControls = By.xpath(".//div[@aria-controls='" + attributeAriaControls + "']");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -43,13 +43,6 @@ public class MainPage {
                 driver.findElement(By.xpath(".//div[@aria-controls='" + ariaControls + "']")));
         return this;
     }
-    public MainPage goToAccordionButton2(int i){
-
-        String ariaControls = dgd(i);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
-                driver.findElement(By.xpath(".//div[@aria-controls='" + ariaControls + "']")));
-        return this;
-    }
 
     public String checkTextExpandsOnclick(int i){
         return driver.findElements(accordionButton).get(i).getAttribute("aria-expanded");
@@ -60,8 +53,9 @@ public class MainPage {
     }
 
     public String getExpandedTextFromAnswer(int i){
+        String ariaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");
         return new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.visibilityOf(driver.findElement(ariaControls))).getText();
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id(ariaControls)))).getText();
     }
 
     public String getTextFromQuestion(int i){
@@ -73,10 +67,7 @@ public class MainPage {
 
     }
 
-    public String dgd(int i){
-        return driver.findElements(accordionButton).get(i).getAttribute("aria-controls");
 
-    }
 
 
 

@@ -70,7 +70,6 @@ public class ImportantQuestionsAtMainPage {
     @Test
     public void checkExpandingAnswer(){
         MainPage mainPage = new MainPage(driver);
-       // mainPage.goToAccordionButton2(accordionButtonNumber);
         mainPage.goToAccordionButton(accordionButtonNumber)
                 .clickOnQuestion(accordionButtonNumber);
         // После нажатия на вопрос открыватся ответ
