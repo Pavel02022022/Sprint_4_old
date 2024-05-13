@@ -96,6 +96,11 @@ public class MainPage {
                 driver.findElement(element));
     }
 
+    public void waitForElement(By element){
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOf(driver.findElement(element)));
+    }
+
     public int getQuantityOfOrderButtons(){
         return driver.findElements(orderButton).size();
     }
