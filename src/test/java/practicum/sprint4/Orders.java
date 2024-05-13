@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import practicum.sprint4.pom.MainPage;
@@ -29,6 +30,7 @@ public class Orders {
         //options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         // Драйвер для браузера Chrome
         driver = new ChromeDriver(options);
+        // driver = new FirefoxDriver();
         // Ожидание
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         // Адрес страницы
@@ -54,7 +56,7 @@ public class Orders {
 
 
     @Test
-    public void checkTopOrderButton() throws InterruptedException {
+    public void checkTopOrderButton()  {
         MainPage mainPage = new MainPage(driver);
 
         //mainPage.goToBottomOrderButton().clickOnBottomOrderButton();
@@ -62,7 +64,7 @@ public class Orders {
 
         OrderPage orderPage = new OrderPage(driver);
 
-        orderPage.fillFieldName("Ававыа")
+       String successOrder = orderPage.fillFieldName("Ававыа")
                  .fillFieldSurname("ВАвав")
                  .fillFieldAddress("Вавава")
                  .fillMetroStation("Черкизовская")
@@ -72,19 +74,23 @@ public class Orders {
                  .fillRentalPeriod("двое суток")
                  .setCollor("чёрный жемчуг")
                  .fillComment("fg")
-                 .orderButtonClick();
-        driver.findElement(By.xpath(".//button[contains(text(), 'Да')]")).click();
+                 .orderButtonClick().yesButtonClick()
+                 .orderProcessed();
+       Assert.assertEquals("Заказ оформлен", successOrder);
+        //System.out.println(driver.findElement(By.cssSelector(".Order_ModalHeader__3FDaJ > div:first-child")));
+
+
     }
 
     @Test
-    public void checkBottomOrderButton() throws InterruptedException {
+    public void checkBottomOrderButton()  {
         MainPage mainPage = new MainPage(driver);
 
         mainPage.goToBottomOrderButton().clickOnBottomOrderButton();
 
         OrderPage orderPage = new OrderPage(driver);
 
-        orderPage.fillFieldName("Ававыа")
+        String successOrder = orderPage.fillFieldName("Ававыа")
                 .fillFieldSurname("ВАвав")
                 .fillFieldAddress("Вавава")
                 .fillMetroStation("Черкизовская")
@@ -94,7 +100,9 @@ public class Orders {
                 .fillRentalPeriod("двое суток")
                 .setCollor("чёрный жемчуг")
                 .fillComment("fg")
-                .orderButtonClick();
+                .orderButtonClick().yesButtonClick()
+                .orderProcessed();
+        Assert.assertEquals("Заказ оформлен", successOrder);
     }
 
 

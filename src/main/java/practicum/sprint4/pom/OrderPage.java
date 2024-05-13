@@ -5,7 +5,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -27,10 +26,14 @@ public class OrderPage {
     private By colorGrey = By.id("grey");
     private By comment = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     private By backButton = By.xpath(".//button[contains(text(), 'Назад')]");
-    private By orderButton = By.xpath(".//button[contains(text(), 'Заказать')]");
+    private By orderButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Заказать']");
     private By noButton = By.xpath(".//button[contains(text(), 'Нет')]");
     private By yesButton = By.xpath(".//button[contains(text(), 'Да')]");
     private By nextButton = By.xpath(".//button[contains(text(), 'Далее')]");
+
+    //private By orderProcessed = By.xpath(".//div[contains(text(), 'Заказ оформлен')]");
+    private  By orderProcessed = By.className("Order_ModalHeader__3FDaJ");
+
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -127,17 +130,27 @@ public class OrderPage {
 
         if (color.equals("серая безысходность")) {
             driver.findElement(colorGrey).click();}
-
         return this;
     }
 
 
     public OrderPage fillComment(String text){
-        waitAndScrollToElement(comment);
         driver.findElement(comment).sendKeys(text);
         return this;
     }
 
+    public OrderPage yesButtonClick(){
+        driver.findElement(yesButton).click();
+        return this;
+    }
+
+    public String orderProcessed(){
+        String orderText =  driver.findElement(orderProcessed).getText();
+        String[] lines = orderText.split("\n");
+        System.out.println(lines[0]);
+        return lines[0];
+
+    }
 
 
 
