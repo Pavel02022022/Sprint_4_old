@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -34,6 +35,16 @@ public class Orders {
         driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 
+    @Parameterized.Parameters
+    public static Object[][] getQuestionsAndAnswers() {
+        // Номер accordion__button, вопросы и ответы на них
+        return new Object[][] {
+                {"Тест", "Тестов", "ул. Пушкина, д.Колотушкина", "Черкизовская", "79999999999", "двое суток", "чёрный жемчуг", "09:50"},
+                {"Тест2", "Тестов2", "ул. Лермонтова, д.52", "Сокольники", "79999999999", "троек суток", "серая безысходность", "Привет>"},
+        };
+    }
+
+
     // Проверка количества кнопок "Заказать"
     @Test
     public void checkOrderButtonQuantity(){
@@ -43,7 +54,7 @@ public class Orders {
 
 
     @Test
-    public void checkOrderButton() throws InterruptedException {
+    public void checkTopOrderButton() throws InterruptedException {
         MainPage mainPage = new MainPage(driver);
 
         //mainPage.goToBottomOrderButton().clickOnBottomOrderButton();
@@ -62,23 +73,28 @@ public class Orders {
                  .setCollor("чёрный жемчуг")
                  .fillComment("fg")
                  .orderButtonClick();
+        driver.findElement(By.xpath(".//button[contains(text(), 'Да')]")).click();
+    }
 
-        //driver.findElement(By.id("black")).click();
-        //driver.findElement(By.id("grey")).click();
+    @Test
+    public void checkBottomOrderButton() throws InterruptedException {
+        MainPage mainPage = new MainPage(driver);
 
+        mainPage.goToBottomOrderButton().clickOnBottomOrderButton();
 
+        OrderPage orderPage = new OrderPage(driver);
 
-
-        //.fillRentDate()
-                 //.fillRentalPeriod();
-        //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        //WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@class = 'Input_InputContainer__3NykH']/input[@placeholder='Комментарий для курьера']")));
-
-        //.fillComment("sfg")
-          //      .orderButtonClick();
-
-
-
+        orderPage.fillFieldName("Ававыа")
+                .fillFieldSurname("ВАвав")
+                .fillFieldAddress("Вавава")
+                .fillMetroStation("Черкизовская")
+                .fillFieldPhone("79999999999")
+                .nextButtonClick()
+                .fillRentDate()
+                .fillRentalPeriod("двое суток")
+                .setCollor("чёрный жемчуг")
+                .fillComment("fg")
+                .orderButtonClick();
     }
 
 
