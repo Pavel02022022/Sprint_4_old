@@ -2,11 +2,14 @@ package practicum.sprint4.pom;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class OrderPage {
     private WebDriver driver;
@@ -56,6 +59,13 @@ public class OrderPage {
         return this;
     }
 
+
+    public void fillDate(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String date = LocalDate.now().plusDays(1).format(formatter);
+        driver.findElement(date1).sendKeys(date);
+        driver.findElement(date1).sendKeys(Keys.ENTER);
+    }
 
 
 
