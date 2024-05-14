@@ -33,8 +33,6 @@ public class ImportantQuestionsAtMainPage {
         //options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         // Драйвер для браузера Chrome
         driver = new ChromeDriver(options);
-        // Ожидание
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
 
 
@@ -58,16 +56,16 @@ public class ImportantQuestionsAtMainPage {
 
     // Проверяем соответствие текста вопроса
     @Test
-    public void checkQuestionText(){
+    public void checkQuestionTextExpectCorresponds(){
         MainPage mainPage = new MainPage(driver);
         mainPage.open()
-                .goToAccordionButton(accordionButtonNumber); //поправить
+                .goToAccordionButton(accordionButtonNumber);
         Assert.assertEquals(question, mainPage.getTextFromQuestion(accordionButtonNumber));
     }
 
     // Проверяем, что при нажатии на вопрос открывается текст ответа
     @Test
-    public void checkExpandingAnswer(){
+    public void checkExpandingAnswerExpectExpandedAndNotHidden(){
         MainPage mainPage = new MainPage(driver);
         mainPage.open()
                 .goToAccordionButton(accordionButtonNumber)
@@ -84,7 +82,7 @@ public class ImportantQuestionsAtMainPage {
 
     // Проверяем соответствие текста ответа
     @Test
-    public void checkExpandingAnswerText(){
+    public void checkExpandingAnswerTextExpectCorresponds(){
         MainPage mainPage = new MainPage(driver);
         mainPage.open()
                  .goToAccordionButton(accordionButtonNumber)

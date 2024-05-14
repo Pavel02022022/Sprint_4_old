@@ -50,9 +50,6 @@ public class Orders {
         // Драйвер для браузера Chrome
         //driver = new ChromeDriver(options);
         driver = new FirefoxDriver();
-        // Ожидание
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-
     }
 
     @Parameterized.Parameters
@@ -71,7 +68,7 @@ public class Orders {
 
     // Проверка количества кнопок "Заказать" на главной странице
     @Test
-    public void checkOrderButtonQuantity(){
+    public void checkOrderButtonQuantityExpectTwo(){
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
         Assert.assertEquals("Количество кнопок 'Заказать'!=2",2, mainPage.getQuantityOfOrderButtons());
@@ -79,7 +76,7 @@ public class Orders {
 
     // Проверка создания заказа
     @Test
-    public void checkOrderCreation()  {
+    public void checkOrderExpectCreated()  {
         MainPage mainPage = new MainPage(driver);
         mainPage.open()
                 .clickOnOrderButton(orderButtonPosition);
