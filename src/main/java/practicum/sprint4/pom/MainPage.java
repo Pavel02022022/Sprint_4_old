@@ -106,8 +106,17 @@ public class MainPage {
     }
 
 
+    public MainPage clickOnOrderButton(String orderButtonPosition) {
+        if (orderButtonPosition.equals("top")){
+            waitAndScrollToElement(topOrderButton);
+            driver.findElement(topOrderButton).click();
+        }
 
+        if (orderButtonPosition.equals("bottom")){
+            waitAndScrollToElement(botttomOrderButton);
+            driver.findElement(botttomOrderButton).click();
+        }
+        return this;
 
-
-
+    }
 }

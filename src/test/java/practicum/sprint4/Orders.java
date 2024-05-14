@@ -33,16 +33,18 @@ public class Orders {
     private String rentalPeriod;
     private String comment;
     private String color;
+    private String orderButtonPosition;
 
-    public Orders(String name, String surmane, String address, String metroStation, String phone, String rentalPeriod, String comment, String color) {
+    public Orders(String name, String surname, String address, String metroStation, String phone, String rentalPeriod, String comment, String color, String orderButtonPosition) {
         this.name = name;
-        this.surmane = surmane;
+        this.surmane = surname;
         this.address = address;
         this.metroStation = metroStation;
         this.phone = phone;
         this.rentalPeriod = rentalPeriod;
         this.comment = comment;
         this.color = color;
+        this.orderButtonPosition = orderButtonPosition;
     }
 
     @Before
@@ -51,8 +53,8 @@ public class Orders {
         ChromeOptions options = new ChromeOptions();
         //options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         // Драйвер для браузера Chrome
-        driver = new ChromeDriver(options);
-        //driver = new FirefoxDriver();
+        //driver = new ChromeDriver(options);
+        driver = new FirefoxDriver();
         // Ожидание
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         // Адрес страницы
@@ -63,9 +65,11 @@ public class Orders {
     public static Object[][] getQuestionsAndAnswers() {
         // Номер accordion__button, вопросы и ответы на них
         return new Object[][] {
-                {"Тест", "Тестов", "ул. Пушкина, д.Колотушкина", "Черкизовская", "79999999999", "двое суток", "чёрный жемчуг", "09:50"},
-                {"Тестан", "Тестович", "ул. Лермонтова, д.52", "Сокольники", "79999999999", "трое суток", "серая безысходность", "Привет>"},
-                {"Тест2", "Тестов2", "ул. Лермонтова, д.52", "Сокольники", "79999999999", "трое суток", "серая безысходность", "Привет>"},
+                {"Тест", "Тестов", "ул. Пушкина, д.Колотушкина", "Черкизовская", "79999999999", "двое суток", "чёрный жемчуг", "09:50", "top"},
+                {"Тестан", "Тестович", "ул. Лермонтова, д.52", "Сокольники", "79999999999", "трое суток", "серая безысходность", "Привет", "top"},
+                {"Тест", "Тестов", "ул. Пушкина, д.Колотушкина", "Черкизовская", "79999999999", "двое суток", "чёрный жемчуг", "09:50", "bottom"},
+                {"Тестан", "Тестович", "ул. Лермонтова, д.52", "Сокольники", "79999999999", "трое суток", "серая безысходность", "Привет", "bottom"},
+                {"Тест2", "Тестов2", "ул. Лермонтова, д.52", "Сокольники", "79999999999", "трое суток", "серая безысходность", "Привет", "bottom"},
         };
     }
 
@@ -77,46 +81,27 @@ public class Orders {
     }
 
     // Проверка заказа через верхнюю кнопку заказа
+
+
     @Test
-    public void checkTopOrderButton()  {
+    public void checkOrderCreation()  {
         MainPage mainPage = new MainPage(driver);
 
         //mainPage.goToBottomOrderButton().clickOnBottomOrderButton();
-        mainPage.goToTopOrderButton().clickOnTopOrderButton();
+        mainPage.goToTopOrderButton().clickOnOrderButton(orderButtonPosition);
 
         OrderPage orderPage = new OrderPage(driver);
 
-       String successOrder = orderPage.fillFieldName(name)
-                 .fillFieldSurname(surmane)
-                 .fillFieldAddress(address)
-                 .fillMetroStation(metroStation)
-                 .fillFieldPhone(phone)
-                 .nextButtonClick()
-                 .fillRentDate()
-                 .fillRentalPeriod(rentalPeriod)
-                 .setCollor(color)
-                 .fillComment(comment)
-                 .orderButtonClick().yesButtonClick()
-                 .orderProcessed();
-       Assert.assertEquals("Заказ оформлен", successOrder);
-    }
-
-    @Test
-    public void checkBottomOrderButton()  {
-        MainPage mainPage = new MainPage(driver);
-        mainPage.goToBottomOrderButton().clickOnBottomOrderButton();
-
-        OrderPage orderPage = new OrderPage(driver);
-        String successOrder = orderPage.fillFieldName("Ававыа")
-                .fillFieldSurname("ВАвав")
-                .fillFieldAddress("Вавава")
-                .fillMetroStation("Черкизовская")
-                .fillFieldPhone("79999999999")
+        String successOrder = orderPage.fillFieldName(name)
+                .fillFieldSurname(surmane)
+                .fillFieldAddress(address)
+                .fillMetroStation(metroStation)
+                .fillFieldPhone(phone)
                 .nextButtonClick()
                 .fillRentDate()
-                .fillRentalPeriod("двое суток")
-                .setCollor("чёрный жемчуг")
-                .fillComment("fg")
+                .fillRentalPeriod(rentalPeriod)
+                .setCollor(color)
+                .fillComment(comment)
                 .orderButtonClick().yesButtonClick()
                 .orderProcessed();
         Assert.assertEquals("Заказ оформлен", successOrder);
