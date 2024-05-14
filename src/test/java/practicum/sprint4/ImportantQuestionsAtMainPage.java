@@ -62,7 +62,7 @@ public class ImportantQuestionsAtMainPage {
     @Test
     public void checkQuestionText(){
         MainPage mainPage = new MainPage(driver);
-        mainPage.goToAccordionButton(accordionButtonNumber);
+        mainPage.goToAccordionButton(accordionButtonNumber); //поправить
         Assert.assertEquals(question, mainPage.getTextFromQuestion(accordionButtonNumber));
     }
 

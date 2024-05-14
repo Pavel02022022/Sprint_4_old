@@ -17,8 +17,9 @@ public class MainPage {
     private By accordionButton = By.className("accordion__button");
 
     private By topOrderButton = By.className("Button_Button__ra12g");
+    private By botttomOrderButton =By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Заказать']");
 
-    private By botttomOrderButton = By.xpath(".//div[@Class = 'Home_FinishButton__1_cWm']/button");
+    private By cookiePanel = By.className("App_CookieConsent__1yUIN");
 
     //private String attributeAriaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");;
 
@@ -41,6 +42,7 @@ public class MainPage {
 
     public MainPage goToAccordionButton(int i){
         String ariaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");
+        scrollToElement(accordionButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
                 driver.findElement(By.xpath(".//div[@aria-controls='" + ariaControls + "']")));
         return this;
@@ -69,36 +71,16 @@ public class MainPage {
 
     }
 
-    public MainPage goToTopOrderButton(){
-        waitAndScrollToElement(orderButton);
-        return this;
-    }
-
-    public MainPage clickOnTopOrderButton(){
-        driver.findElement(topOrderButton).click();
-        return this;
-    }
-    public MainPage goToBottomOrderButton(){
-        waitAndScrollToElement(botttomOrderButton);
-        return this;
-    }
-
-    public MainPage clickOnBottomOrderButton(){
-        driver.findElement(botttomOrderButton).click();
-        return this;
-    }
-
-    public void waitAndScrollToElement(By element){
+    public MainPage waitForElement(By element){
         new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOf(driver.findElement(element)));
+        return this;
+    }
 
+    public MainPage scrollToElement(By element){
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
                 driver.findElement(element));
-    }
-
-    public void waitForElement(By element){
-        new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.visibilityOf(driver.findElement(element)));
+        return this;
     }
 
     public int getQuantityOfOrderButtons(){
@@ -108,15 +90,21 @@ public class MainPage {
 
     public MainPage clickOnOrderButton(String orderButtonPosition) {
         if (orderButtonPosition.equals("top")){
-            waitAndScrollToElement(topOrderButton);
+            waitForElement(topOrderButton);
             driver.findElement(topOrderButton).click();
         }
 
         if (orderButtonPosition.equals("bottom")){
-            waitAndScrollToElement(botttomOrderButton);
+            waitForElement(botttomOrderButton);
+            removeElement(cookiePanel);
             driver.findElement(botttomOrderButton).click();
         }
         return this;
+    }
 
+    public MainPage removeElement(By element){
+        ((JavascriptExecutor) driver).executeScript("arguments[0].remove();",
+                driver.findElement(element));
+        return this;
     }
 }

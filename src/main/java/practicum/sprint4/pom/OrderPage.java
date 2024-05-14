@@ -1,9 +1,7 @@
 package practicum.sprint4.pom;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -45,10 +43,9 @@ public class OrderPage {
     // Кнопка "Далее"
     private By nextButton = By.xpath(".//button[contains(text(), 'Далее')]");
 
-    //private By orderProcessed = By.xpath(".//div[contains(text(), 'Заказ оформлен')]");
+    private By orderProcessed = By.xpath(".//div[contains(text(), 'Заказ оформлен')]");
     // Модальное окно успешного заказа
-    private  By orderProcessed = By.className("Order_ModalHeader__3FDaJ");
-
+    //private  By orderProcessed = By.className("Order_ModalHeader__3FDaJ");
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -127,6 +124,7 @@ public class OrderPage {
 
     // Нажатие на кнопку оформления заказа
     public OrderPage orderButtonClick(){
+        waitAndScrollToElement(orderButton);
         driver.findElement(orderButton).click();
         return this;
     }
@@ -145,9 +143,6 @@ public class OrderPage {
             }
 
         }
-
-
-
         return this;
     }
 
@@ -167,13 +162,6 @@ public class OrderPage {
     public String orderProcessed(){
         String orderText =  driver.findElement(orderProcessed).getText();
         String[] lines = orderText.split("\n");
-        System.out.println(lines[0]);
         return lines[0];
-
     }
-
-
-
-
-
 }
