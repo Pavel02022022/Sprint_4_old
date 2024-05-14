@@ -88,7 +88,7 @@ public class ImportantQuestionsAtMainPage {
         MainPage mainPage = new MainPage(driver);
         mainPage.open()
                  .goToAccordionButton(accordionButtonNumber)
-                .clickOnQuestion(accordionButtonNumber);
+                 .clickOnQuestion(accordionButtonNumber);
         Assert.assertEquals("Ответ на вопрос и полученный текст не совпали", answer, mainPage.getExpandedTextFromAnswer(accordionButtonNumber));
     }
 

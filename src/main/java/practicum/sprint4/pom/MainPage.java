@@ -68,18 +68,11 @@ public class MainPage {
 
     public boolean questionTextIsDisplayed(int i){
         return driver.findElements(accordionButton).get(i).isDisplayed();
-
     }
 
     public MainPage waitForElement(By element){
         new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOf(driver.findElement(element)));
-        return this;
-    }
-
-    public MainPage scrollToElement(By element){
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
-                driver.findElement(element));
         return this;
     }
 
