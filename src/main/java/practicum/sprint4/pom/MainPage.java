@@ -35,12 +35,13 @@ public class MainPage {
         driver.get(URL);
         return this;
     }
-
+    // Клик на вопросе
     public MainPage clickOnQuestion(int i){
         driver.findElements(accordionButton).get(i).click();
         return this;
     }
 
+    // Переход к n-ой accordionButton
     public MainPage goToAccordionButton(int i){
         String ariaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
@@ -48,39 +49,46 @@ public class MainPage {
         return this;
     }
 
+    // Получение атрибута aria-expanded, который понадобится для проверки, что произошло развертывание
     public String checkTextExpandsOnclick(int i){
         return driver.findElements(accordionButton).get(i).getAttribute("aria-expanded");
     }
 
+    // Получение атрибута hidden, который понадобится для проверки, что текст больше не скрыт
     public String textIsNotHidden(int i){
         return driver.findElements(accordionButton).get(i).getAttribute("hidden");
     }
 
+    // Получение текста открывшегося текста ответа
     public String getExpandedTextFromAnswer(int i){
         String ariaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");
         return new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.id(ariaControls)))).getText();
     }
 
+    // Получение текста текста вопроса
     public String getTextFromQuestion(int i){
         return driver.findElements(accordionButton).get(i).getText();
     }
 
+    // Текст больше не скрыт
     public boolean questionTextIsDisplayed(int i){
         return driver.findElements(accordionButton).get(i).isDisplayed();
     }
 
+    // Ождидание элемента
     public MainPage waitForElement(By element){
         new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOf(driver.findElement(element)));
         return this;
     }
 
+    // Получение количества кнопок заказть
     public int getQuantityOfOrderButtons(){
         return driver.findElements(orderButton).size();
     }
 
-
+    // Нажати на кнопку "Заказать"
     public MainPage clickOnOrderButton(String orderButtonPosition) {
         if (orderButtonPosition.equals("top")){
             waitForElement(topOrderButton);
@@ -96,6 +104,7 @@ public class MainPage {
         return this;
     }
 
+    // Удаление элемента понадобилось, потому что элемент перекрывал нажатие на кнопку заказа
     public MainPage removeElement(By element){
         ((JavascriptExecutor) driver).executeScript("arguments[0].remove();",
                 driver.findElement(element));
