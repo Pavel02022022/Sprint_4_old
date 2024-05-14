@@ -31,19 +31,19 @@ public class Orders {
     private String metroStation;
     private String phone;
     private String rentalPeriod;
-    private String comment;
     private String color;
+    private String comment;
     private String orderButtonPosition;
 
-    public Orders(String name, String surname, String address, String metroStation, String phone, String rentalPeriod, String comment, String color, String orderButtonPosition) {
+    public Orders(String name, String surname, String address, String metroStation, String phone, String rentalPeriod, String color, String comment, String orderButtonPosition) {
         this.name = name;
         this.surmane = surname;
         this.address = address;
         this.metroStation = metroStation;
         this.phone = phone;
         this.rentalPeriod = rentalPeriod;
-        this.comment = comment;
         this.color = color;
+        this.comment = comment;
         this.orderButtonPosition = orderButtonPosition;
     }
 
@@ -53,8 +53,8 @@ public class Orders {
         ChromeOptions options = new ChromeOptions();
         //options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         // Драйвер для браузера Chrome
-        //driver = new ChromeDriver(options);
-        driver = new FirefoxDriver();
+        driver = new ChromeDriver(options);
+        //driver = new FirefoxDriver();
         // Ожидание
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         // Адрес страницы
@@ -65,10 +65,12 @@ public class Orders {
     public static Object[][] getQuestionsAndAnswers() {
         // Номер accordion__button, вопросы и ответы на них
         return new Object[][] {
+                {"Тест", "Тестов", "ул. Пушкина, д.Колотушкина", "Черкизовская", "79999999999", "двое суток", null, "09:50", "top"},
                 {"Тест", "Тестов", "ул. Пушкина, д.Колотушкина", "Черкизовская", "79999999999", "двое суток", "чёрный жемчуг", "09:50", "top"},
                 {"Тестан", "Тестович", "ул. Лермонтова, д.52", "Сокольники", "79999999999", "трое суток", "серая безысходность", "Привет", "top"},
                 {"Тест", "Тестов", "ул. Пушкина, д.Колотушкина", "Черкизовская", "79999999999", "двое суток", "чёрный жемчуг", "09:50", "bottom"},
                 {"Тестан", "Тестович", "ул. Лермонтова, д.52", "Сокольники", "79999999999", "трое суток", "серая безысходность", "Привет", "bottom"},
+                {"Тест", "Тестов", "ул. Пушкина, д.Колотушкина", "Черкизовская", "79999999999", "двое суток", null, "09:50", "top"},
                 {"Тест2", "Тестов2", "ул. Лермонтова, д.52", "Сокольники", "79999999999", "трое суток", "серая безысходность", "Привет", "bottom"},
         };
     }

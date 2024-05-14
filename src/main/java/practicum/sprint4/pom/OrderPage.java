@@ -133,12 +133,21 @@ public class OrderPage {
 
     // Выбор цвета через чек-бокс
     public OrderPage setCollor(String color){
-        if (color.equals("чёрный жемчуг")) {
-            driver.findElement(colorBlack).click();
+
+        if (color!=null) {
+
+            if (color.equals("чёрный жемчуг")) {
+                driver.findElement(colorBlack).click();
+            }
+
+            if (color.equals("серая безысходность")) {
+                driver.findElement(colorGrey).click();
+            }
+
         }
 
-        if (color.equals("серая безысходность")) {
-            driver.findElement(colorGrey).click();}
+
+
         return this;
     }
 
