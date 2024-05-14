@@ -51,9 +51,7 @@ public class Practicum {
         // /html/body/div/div/div/div[5]/div[2]/div/div[1]/div[1]/div
         String bbb = driver.findElement(By.xpath("/html/body/div/div/div/div[5]/div[2]/div/div[1]/div[2]/p")).getText();
         System.out.println(bbb);
-
-
-
+        
     }
     @Test
     public void asd(){
