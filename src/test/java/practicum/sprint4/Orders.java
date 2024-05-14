@@ -51,9 +51,6 @@ public class Orders {
         driver = new FirefoxDriver();
         // Ожидание
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        // Адрес страницы
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-
 
     }
 
@@ -71,18 +68,20 @@ public class Orders {
         };
     }
 
-    // Проверка количества кнопок "Заказать"
+    // Проверка количества кнопок "Заказать" на главной странице
     @Test
     public void checkOrderButtonQuantity(){
         MainPage mainPage = new MainPage(driver);
-        Assert.assertEquals(2, mainPage.getQuantityOfOrderButtons());
+        mainPage.open();
+        Assert.assertEquals("Количество кнопок 'Заказать'!=2",2, mainPage.getQuantityOfOrderButtons());
     }
 
     // Проверка создания заказа
     @Test
     public void checkOrderCreation()  {
         MainPage mainPage = new MainPage(driver);
-        mainPage.clickOnOrderButton(orderButtonPosition);
+        mainPage.open()
+                .clickOnOrderButton(orderButtonPosition);
 
         OrderPage orderPage = new OrderPage(driver);
         String successOrder = orderPage.fillFieldName(name)
@@ -98,14 +97,12 @@ public class Orders {
                 .orderButtonClick()
                 .yesButtonClick()
                 .orderProcessed();
-        Assert.assertEquals("Заказ оформлен", successOrder);
+        Assert.assertEquals("Заказ не был оформлен","Заказ оформлен", successOrder);
     }
 
+    // Закрываем браузер
     @After
-    public void teardown() {
-        // Закрываем браузер
-        driver.quit();
-    }
+    public void teardown() {driver.quit();}
 
 
 }

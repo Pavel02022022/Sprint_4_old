@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class MainPage {
+    private static final String URL = "https://qa-scooter.praktikum-services.ru/";
     private WebDriver driver;
 
     // Кнопка "Заказать"
@@ -29,9 +30,9 @@ public class MainPage {
         this.driver = driver;
     }
 
-    //Нажать кнопку "Заказать"
-    public MainPage pressOrderButton(){
-        driver.findElement(orderButton).click();
+    // Открыть главную страницу
+    public MainPage open() {
+        driver.get(URL);
         return this;
     }
 
@@ -42,7 +43,6 @@ public class MainPage {
 
     public MainPage goToAccordionButton(int i){
         String ariaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");
-        scrollToElement(accordionButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
                 driver.findElement(By.xpath(".//div[@aria-controls='" + ariaControls + "']")));
         return this;

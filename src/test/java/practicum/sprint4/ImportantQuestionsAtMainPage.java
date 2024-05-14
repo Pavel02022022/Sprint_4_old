@@ -35,8 +35,6 @@ public class ImportantQuestionsAtMainPage {
         driver = new ChromeDriver(options);
         // Ожидание
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        // Адрес страницы
-        driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 
 
@@ -62,7 +60,8 @@ public class ImportantQuestionsAtMainPage {
     @Test
     public void checkQuestionText(){
         MainPage mainPage = new MainPage(driver);
-        mainPage.goToAccordionButton(accordionButtonNumber); //поправить
+        mainPage.open()
+                .goToAccordionButton(accordionButtonNumber); //поправить
         Assert.assertEquals(question, mainPage.getTextFromQuestion(accordionButtonNumber));
     }
 
@@ -70,7 +69,8 @@ public class ImportantQuestionsAtMainPage {
     @Test
     public void checkExpandingAnswer(){
         MainPage mainPage = new MainPage(driver);
-        mainPage.goToAccordionButton(accordionButtonNumber)
+        mainPage.open()
+                .goToAccordionButton(accordionButtonNumber)
                 .clickOnQuestion(accordionButtonNumber);
         // После нажатия на вопрос открыватся ответ
         Assert.assertEquals("true", mainPage.checkTextExpandsOnclick(accordionButtonNumber));
@@ -81,20 +81,18 @@ public class ImportantQuestionsAtMainPage {
         Assert.assertNotNull(mainPage.getTextFromQuestion(accordionButtonNumber));
     }
 
+
     // Проверяем соответствие текста ответа
     @Test
     public void checkExpandingAnswerText(){
         MainPage mainPage = new MainPage(driver);
-        mainPage.goToAccordionButton(accordionButtonNumber)
+        mainPage.open()
+                 .goToAccordionButton(accordionButtonNumber)
                 .clickOnQuestion(accordionButtonNumber);
-        Assert.assertEquals(answer, mainPage.getExpandedTextFromAnswer(accordionButtonNumber));
+        Assert.assertEquals("Ответ на вопрос и полученный текст не совпали", answer, mainPage.getExpandedTextFromAnswer(accordionButtonNumber));
     }
 
     @After
-    public void teardown() {
-        // Закрываем браузер
-        driver.quit();
-    }
-
+    public void teardown() {driver.quit();} // Закрываем браузер
 
 }
