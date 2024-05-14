@@ -36,16 +36,13 @@ public class OrderPage {
     private By backButton = By.xpath(".//button[contains(text(), 'Назад')]");
     // Кнопка для оформления заказа
     private By orderButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Заказать']");
-    // Кнопка "Нет"
-    private By noButton = By.xpath(".//button[contains(text(), 'Нет')]");
+
     // Кнопка "Да"
     private By yesButton = By.xpath(".//button[contains(text(), 'Да')]");
     // Кнопка "Далее"
     private By nextButton = By.xpath(".//button[contains(text(), 'Далее')]");
-
+    // Окно с текстом успешного заказа
     private By orderProcessed = By.xpath(".//div[contains(text(), 'Заказ оформлен')]");
-    // Модальное окно успешного заказа
-    //private  By orderProcessed = By.className("Order_ModalHeader__3FDaJ");
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -160,7 +157,7 @@ public class OrderPage {
 
     // Получение текста статуса заказа
     public String orderProcessed(){
-        String orderText =  driver.findElement(orderProcessed).getText();
+        String orderText =driver.findElement(orderProcessed).getText();
         String[] lines = orderText.split("\n");
         return lines[0];
     }

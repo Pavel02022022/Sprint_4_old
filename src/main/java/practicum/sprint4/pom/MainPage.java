@@ -22,9 +22,6 @@ public class MainPage {
 
     private By cookiePanel = By.className("App_CookieConsent__1yUIN");
 
-    //private String attributeAriaControls = driver.findElements(accordionButton).get(i).getAttribute("aria-controls");;
-
-    //private By ariaControls = By.xpath(".//div[@aria-controls='" + attributeAriaControls + "']");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
