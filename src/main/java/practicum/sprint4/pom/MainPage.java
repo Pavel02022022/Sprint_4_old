@@ -84,6 +84,7 @@ public class MainPage {
     public MainPage clickOnOrderButton(String orderButtonPosition) {
         if (orderButtonPosition.equals("top")){
             waitForElement(topOrderButton);
+            removeElement(cookiePanel);
             driver.findElement(topOrderButton).click();
         }
 

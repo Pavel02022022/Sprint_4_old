@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import practicum.sprint4.pom.MainPage;
@@ -45,10 +46,10 @@ public class Orders {
 
         // Настройки Хрома
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         // Драйвер для браузера Chrome
-        //driver = new ChromeDriver(options);
-        driver = new FirefoxDriver();
+        driver = new ChromeDriver(options);
+        //driver = new FirefoxDriver();
         // Ожидание
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 
