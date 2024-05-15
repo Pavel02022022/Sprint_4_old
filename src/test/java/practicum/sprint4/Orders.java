@@ -55,7 +55,7 @@ public class Orders {
         // Настройки Хрома
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-        // Драйвер для браузера Chrome    
+        // Драйвер для браузера Chrome
         driver = new ChromeDriver(options);
         //driver = new FirefoxDriver();
     }
