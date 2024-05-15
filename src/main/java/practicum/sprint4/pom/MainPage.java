@@ -26,7 +26,7 @@ public class MainPage {
         this.driver = driver;
     }
 
-    // Открыть главную страницу
+    // Открыть главную страницу сайта
     public MainPage open() {
         driver.get(URL);
         return this;
