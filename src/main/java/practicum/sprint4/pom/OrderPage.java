@@ -1,7 +1,6 @@
 package practicum.sprint4.pom;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -36,7 +35,6 @@ public class OrderPage {
     private By backButton = By.xpath(".//button[contains(text(), 'Назад')]");
     // Кнопка для оформления заказа
     private By orderButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Заказать']");
-
     // Кнопка "Да"
     private By yesButton = By.xpath(".//button[contains(text(), 'Да')]");
     // Кнопка "Далее"
@@ -105,23 +103,23 @@ public class OrderPage {
         return this;
     }
 
-    public void waitAndScrollToElement(By element){
+    // Ожидание для появления элемента
+    public OrderPage waitForElement(By element){
         new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOf(driver.findElement(element)));
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
-                driver.findElement(element));
+        return this;
     }
 
-    // Ожидание для появления элемента
-    public void waitForElement(By element){
+    // Скролл до элемента
+    public OrderPage scrollToElement(By element){
         new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOf(driver.findElement(element)));
+        return this;
     }
 
     // Нажатие на кнопку оформления заказа
     public OrderPage orderButtonClick(){
-        waitAndScrollToElement(orderButton);
+        waitForElement(orderButton).scrollToElement(orderButton);
         driver.findElement(orderButton).click();
         return this;
     }

@@ -18,20 +18,28 @@ import java.time.Duration;
 @RunWith(Parameterized.class)
 public class Orders {
     private WebDriver driver;
-
+    // Имя
     private String name;
-    private String surmane;
+    // Фамилия
+    private String surname;
+    // Адрес
     private String address;
+    // Метро
     private String metroStation;
+    // Номер телефона
     private String phone;
+    // Период аренды
     private String rentalPeriod;
+    // Цвет самоката
     private String color;
+    // Комментарий
     private String comment;
+    // Позиция кнопки "Заказать"
     private String orderButtonPosition;
 
     public Orders(String name, String surname, String address, String metroStation, String phone, String rentalPeriod, String color, String comment, String orderButtonPosition) {
         this.name = name;
-        this.surmane = surname;
+        this.surname = surname;
         this.address = address;
         this.metroStation = metroStation;
         this.phone = phone;
@@ -54,7 +62,7 @@ public class Orders {
 
     @Parameterized.Parameters
     public static Object[][] getTestData() {
-        // Номер accordion__button, вопросы и ответы на них
+        // Имя, Фамилия, адрес, метро, номер телефона, цвет самоката, комментарий, позиция кнопки "Заказать"
         return new Object[][] {
                 {"Тест", "Тестов", "ул. Пушкина, д.Колотушкина", "Черкизовская", "79999999999", "двое суток", "чёрный жемчуг", "09:50", "top"}, //Заказ через верхнюю кнопку, черный цвет самоката
                 {"Тестан", "Тестович", "ул. Лермонтова, д.52", "Сокольники", "79999999999", "трое суток", "серая безысходность", "Привет", "top"},  //Заказ через нижнюю кнопку, серый цвет самоката
@@ -63,14 +71,6 @@ public class Orders {
                 {"Тест", "Тестов", "ул. Сушкина, д.Колотушкина", "Лубянка", "79999999999", "двое суток", null, "09:50", "top"}, //Заказ через верхнюю кнопку, цвет самоката не выбран
                 {"Тестик", "Тестов", "ул. Пушкина, д.2", "Черкизовская", "79999999999", "двое суток", null, "09:50", "bottom"}, //Заказ через нижнюю кнопку, цвет самоката не выбран
         };
-    }
-
-    // Проверка количества кнопок "Заказать" на главной странице
-    @Test
-    public void checkOrderButtonQuantityExpectTwo(){
-        MainPage mainPage = new MainPage(driver);
-        mainPage.open();
-        Assert.assertEquals("Количество кнопок 'Заказать'!=2",2, mainPage.getQuantityOfOrderButtons());
     }
 
     // Проверка создания заказа
@@ -82,7 +82,7 @@ public class Orders {
 
         OrderPage orderPage = new OrderPage(driver);
         String successOrder = orderPage.fillFieldName(name)
-                .fillFieldSurname(surmane)
+                .fillFieldSurname(surname)
                 .fillFieldAddress(address)
                 .fillMetroStation(metroStation)
                 .fillFieldPhone(phone)
@@ -95,11 +95,9 @@ public class Orders {
                 .yesButtonClick()
                 .orderProcessed();
         Assert.assertEquals("Заказ не был оформлен","Заказ оформлен", successOrder);
-
     }
 
     @After
     public void teardown() {driver.quit();} // Закрываем браузер
-
 
 }

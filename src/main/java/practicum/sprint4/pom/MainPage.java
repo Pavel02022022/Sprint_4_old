@@ -22,7 +22,6 @@ public class MainPage {
 
     private By cookiePanel = By.className("App_CookieConsent__1yUIN");
 
-
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -51,7 +50,7 @@ public class MainPage {
         return driver.findElements(accordionButton).get(i).getAttribute("aria-expanded");
     }
 
-    // Получение атрибута hidden, который понадобится для проверки, что текст больше не скрыт
+    // Получение атрибута hidden, который понадобится для проверки, что текст ответа больше не скрыт
     public String textIsNotHidden(int i){
         return driver.findElements(accordionButton).get(i).getAttribute("hidden");
     }
@@ -63,7 +62,7 @@ public class MainPage {
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.id(ariaControls)))).getText();
     }
 
-    // Получение текста текста вопроса
+    // Получение текста вопроса
     public String getTextFromQuestion(int i){
         return driver.findElements(accordionButton).get(i).getText();
     }
@@ -80,12 +79,7 @@ public class MainPage {
         return this;
     }
 
-    // Получение количества кнопок заказть
-    public int getQuantityOfOrderButtons(){
-        return driver.findElements(orderButton).size();
-    }
-
-    // Нажати на кнопку "Заказать"
+    // Нажать на кнопку "Заказать"
     public MainPage clickOnOrderButton(String orderButtonPosition) {
         if (orderButtonPosition.equals("top")){
             waitForElement(topOrderButton);

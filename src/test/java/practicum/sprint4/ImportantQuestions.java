@@ -9,18 +9,15 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import practicum.sprint4.pom.MainPage;
-
-import java.time.Duration;
 
 @RunWith(Parameterized.class)
-public class ImportantQuestionsAtMainPage {
+public class ImportantQuestions {
     private WebDriver driver;
     private int accordionButtonNumber;
     private  String question ;
     private  String answer ;
 
-    public ImportantQuestionsAtMainPage(int accordionButtonNumber, String question, String answer) {
+    public ImportantQuestions(int accordionButtonNumber, String question, String answer) {
         this.accordionButtonNumber = accordionButtonNumber;
         this.question = question;
         this.answer = answer;
@@ -34,7 +31,6 @@ public class ImportantQuestionsAtMainPage {
         // Драйвер для браузера Chrome
         driver = new ChromeDriver(options);
     }
-
 
     @Parameterized.Parameters
     public static Object[][] getQuestionsAndAnswers() {
@@ -50,14 +46,13 @@ public class ImportantQuestionsAtMainPage {
                 {5, "Вы привозите зарядку вместе с самокатом?", "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."},
                 {6, "Можно ли отменить заказ?", "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."},
                 {7, "Я живу за МКАДом, привезёте?", "Да, обязательно. Всем самокатов! И Москве, и Московской области."}
-
         };
     }
 
     // Проверяем соответствие текста вопроса
     @Test
     public void checkQuestionTextExpectCorresponds(){
-        MainPage mainPage = new MainPage(driver);
+        practicum.sprint4.pom.MainPage mainPage = new practicum.sprint4.pom.MainPage(driver);
         mainPage.open()
                 .goToAccordionButton(accordionButtonNumber);
         Assert.assertEquals(question, mainPage.getTextFromQuestion(accordionButtonNumber));
@@ -66,7 +61,7 @@ public class ImportantQuestionsAtMainPage {
     // Проверяем, что при нажатии на вопрос открывается текст ответа
     @Test
     public void checkExpandingAnswerExpectExpandedAndNotHidden(){
-        MainPage mainPage = new MainPage(driver);
+        practicum.sprint4.pom.MainPage mainPage = new practicum.sprint4.pom.MainPage(driver);
         mainPage.open()
                 .goToAccordionButton(accordionButtonNumber)
                 .clickOnQuestion(accordionButtonNumber);
@@ -79,11 +74,10 @@ public class ImportantQuestionsAtMainPage {
         Assert.assertNotNull(mainPage.getTextFromQuestion(accordionButtonNumber));
     }
 
-
     // Проверяем соответствие текста ответа
     @Test
     public void checkExpandingAnswerTextExpectCorresponds(){
-        MainPage mainPage = new MainPage(driver);
+        practicum.sprint4.pom.MainPage mainPage = new practicum.sprint4.pom.MainPage(driver);
         mainPage.open()
                  .goToAccordionButton(accordionButtonNumber)
                  .clickOnQuestion(accordionButtonNumber);
